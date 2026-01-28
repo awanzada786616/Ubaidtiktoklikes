@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubaid Social Marketing | Premium SMM</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Sci-Fi/Tech Look) -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <!-- SweetAlert2 (Popups) -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        :root {
+            --primary: #00f2ff;
+            --secondary: #ff0055;
+            --dark-bg: #050505;
+            --card-bg: rgba(20, 20, 30, 0.85);
+            --text-font: 'Rajdhani', sans-serif;
+            --title-font: 'Orbitron', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: var(--text-font);
+            overflow-x: hidden;
+            margin: 0;
+            padding-bottom: 50px;
+        }
+
+        /* --- DNA Background Animation --- */
+        .dna-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #111 0%, #000 100%);
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 8px var(--primary);
+            animation: floatUp 15s infinite linear;
+            opacity: 0.4;
+            z-index: -1;
+        }
+        
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        /* --- Hero Section --- */
+        .hero-title {
+            font-family: var(--title-font);
+            font-size: 3.5rem;
+            text-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
+            margin-top: 60px;
+            letter-spacing: 2px;
+        }
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 50px;
+        }
+
+        /* --- Service Cards --- */
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(12px);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 40px rgba(0, 242, 255, 0.15);
+            border-color: rgba(0, 242, 255, 0.3);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), white);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- Order Form --- */
+        .order-form-container {
+            background: #111;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--secondary);
+            box-shadow: 0 0 50px rgba(255, 0, 85, 0.15);
+            max-width: 600px;
+            margin: 40px auto;
+            display: none;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-control {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #333;
+            color: white;
+            padding: 12px;
+            font-family: var(--text-font);
+        }
+        .form-control:focus {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+        }
+
+        .btn-custom {
+            background: linear-gradient(90deg, var(--primary), #00a8b5);
+            border: none;
+            color: #000;
+            font-weight: 700;
+            padding: 12px 35px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            width: 100%;
+        }
+        .btn-custom:hover {
+            box-shadow: 0 0 25px var(--primary);
+            transform: scale(1.02);
+        }
+
+        /* --- Tracking Section --- */
+        .tracking-container {
+            background: rgba(10, 10, 20, 0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 60px;
+            backdrop-filter: blur(10px);
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .status-pending { background: rgba(255, 204, 0, 0.2); color: #ffcc00; border: 1px solid #ffcc00; }
+        .status-processing { background: rgba(0, 242, 255, 0.2); color: #00f2ff; border: 1px solid #00f2ff; }
+        .status-completed { background: rgba(0, 255, 85, 0.2); color: #00ff55; border: 1px solid #00ff55; }
+        .status-partial { background: rgba(255, 0, 85, 0.2); color: #ff0055; border: 1px solid #ff0055; }
+        .status-canceled { background: rgba(100, 100, 100, 0.2); color: #ccc; border: 1px solid #777; }
+
+        .history-table {
+            width: 100%;
+            margin-top: 20px;
+            color: #ddd;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+        .history-table th { 
+            color: var(--secondary); 
+            text-transform: uppercase; 
+            font-size: 0.85rem; 
+            padding: 10px;
+        }
+        .history-table td { 
+            background: rgba(255,255,255,0.03); 
+            padding: 15px; 
+            vertical-align: middle;
+        }
+        .history-table tr td:first-child { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
+        .history-table tr td:last-child { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
+
+        .refresh-btn { 
+            cursor: pointer; 
+            color: var(--primary); 
+            font-size: 1.2rem;
+            transition: 0.5s ease; 
+        }
+        .refresh-btn:hover { 
+            transform: rotate(180deg); 
+            text-shadow: 0 0 15px var(--primary); 
+        }
+
+        footer { border-top: 1px solid #222; margin-top: 50px; padding-top: 30px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <!-- DNA Animation Background -->
+    <div class="dna-bg" id="particles"></div>
+
+    <div class="container text-center">
+        
+        <!-- Header -->
+        <h1 class="hero-title">UBAID <span style="color:var(--secondary)">SOCIAL</span></h1>
+        <p class="hero-subtitle">DNA-Driven Marketing Solutions</p>
+
+        <!-- Services Grid -->
+        <div class="row g-4 justify-content-center" id="servicesGrid">
+            <!-- Cards injected via JS -->
+        </div>
+
+        <!-- Order Form Section -->
+        <div id="orderSection" class="order-form-container">
+            <h3 id="selectedServiceTitle" class="mb-4" style="font-family: var(--title-font); color:white;">
+                Place Order
+            </h3>
+            <form id="orderForm">
+                <input type="hidden" id="serviceId">
+                <input type="hidden" id="serviceName">
+                
+                <div class="mb-4 text-start">
+                    <label class="form-label text-white-50">Link (Profile/Post URL)</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-white"><i class="fas fa-link"></i></span>
+                        <input type="url" class="form-control" id="linkInput" placeholder="https://..." required>
+                    </div>
+                </div>
+
+                <div class="mb-4 text-start">
+                    <label class="form-label text-white-50">Quantity <span id="limitDisplay" class="ms-2 badge bg-secondary"></span></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-white"><i class="fas fa-bolt"></i></span>
+                        <input type="number" class="form-control" id="quantityInput" placeholder="Enter amount" required>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-3">
+                    <button type="button" class="btn btn-outline-secondary w-50" onclick="hideForm()">Cancel</button>
+                    <button type="submit" class="btn btn-custom w-50">Start DNA</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Live Tracking Section -->
+        <div class="tracking-container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="m-0 text-start" style="font-family: var(--title-font); color: white;">
+                    <i class="fas fa-satellite-dish text-primary me-2"></i> Real-time Tracking
+                </h3>
+                <i class="fas fa-sync-alt refresh-btn" onclick="refreshHistory()" title="Refresh Status"></i>
+            </div>
+            
+            <!-- Manual Input -->
+            <div class="input-group mb-4" style="max-width: 500px; margin: 0 auto;">
+                <input type="text" id="trackOrderId" class="form-control" placeholder="Search Order ID (e.g. 4501)">
+                <button class="btn btn-outline-primary" type="button" onclick="manualTrack()">Check</button>
+            </div>
+
+            <!-- History Table -->
+            <div class="table-responsive">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Service</th>
+                            <th>Status</th>
+                            <th>Remains</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyBody">
+                        <tr><td colspan="4" class="text-muted">No recent orders found on this device.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-white-50">
+            <p>&copy; 2024 Ubaid Social Marketing. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <!-- MAIN LOGIC -->
+    <script>
+        // --- 1. Generate DNA Particles Background ---
+        const particleContainer = document.getElementById('particles');
+        const particleCount = 40;
+        
+        for(let i=0; i<particleCount; i++){
+            const div = document.createElement('div');
+            div.className = 'particle';
+            div.style.left = Math.random() * 100 + '%';
+            div.style.width = (Math.random() * 8 + 2) + 'px';
+            div.style.height = div.style.width;
+            div.style.animationDelay = (Math.random() * 10) + 's';
+            div.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            div.style.backgroundColor = i % 2 === 0 ? 'var(--primary)' : 'var(--secondary)';
+            particleContainer.appendChild(div);
+        }
+
+        // --- 2. Service Configuration & Limits ---
+        const services = [
+            { name: "Instagram Likes", id: 4665, icon: "fa-heart", limit: 10000, desc: "Instant Start" },
+            { name: "Video Views", id: 4688, icon: "fa-eye", limit: 70000, desc: "High Speed" },
+            { name: "Custom Comments", id: 4391, icon: "fa-comments", limit: 500, desc: "Real User" },
+            { name: "Post Favorites", id: 4004, icon: "fa-bookmark", limit: 500, desc: "Ranking Boost" }
+        ];
+
+        // --- 3. Render Cards ---
+        const grid = document.getElementById('servicesGrid');
+        services.forEach(service => {
+            const col = document.createElement('div');
+            col.className = 'col-md-3 col-sm-6';
+            col.innerHTML = `
+                <div class="service-card" onclick="openForm(${service.id})">
+                    <i class="fas ${service.icon} service-icon"></i>
+                    <h4 style="font-family: var(--title-font)">${service.name}</h4>
+                    <p class="text-white-50 mb-1">${service.desc}</p>
+                    <div class="badge bg-dark border border-secondary text-secondary">Max: ${service.limit.toLocaleString()}</div>
+                </div>
+            `;
+            grid.appendChild(col);
+        });
+
+        // --- 4. Form Handling ---
+        function openForm(id) {
+            const service = services.find(s => s.id === id);
+            document.getElementById('serviceId').value = service.id;
+            document.getElementById('serviceName').value = service.name;
+            document.getElementById('selectedServiceTitle').innerHTML = `<i class="fas ${service.icon} me-2"></i> ${service.name}`;
+            document.getElementById('limitDisplay').innerText = `Max: ${service.limit}`;
+            
+            const formDiv = document.getElementById('orderSection');
+            formDiv.style.display = 'block';
+            formDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function hideForm() {
+            document.getElementById('orderSection').style.display = 'none';
+        }
+
+        // --- 5. Order Logic & Vercel API Integration ---
+        document.getElementById('orderForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const serviceId = parseInt(document.getElementById('serviceId').value);
+            const qty = parseInt(document.getElementById('quantityInput').value);
+            const link = document.getElementById('linkInput').value;
+            const serviceName = document.getElementById('serviceName').value;
+            const service = services.find(s => s.id === serviceId);
+
+            // LIMIT VALIDATION
+            if (qty > service.limit) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Limit Exceeded!',
+                    text: `Maximum allowed for ${service.name} is ${service.limit}. Please reduce quantity.`,
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    confirmButtonColor: '#ff0055'
+                });
+                return;
+            }
+
+            // SHOW LOADING
+            Swal.fire({
+                title: 'Injecting DNA...',
+                html: 'Connecting to secure server...',
+                timerProgressBar: true,
+                didOpen: () => { Swal.showLoading() },
+                background: '#1a1a1a',
+                color: '#fff'
+            });
+
+            try {
+                // Call Vercel Backend Function
+                const response = await fetch('/api/order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        service: serviceId, 
+                        link: link, 
+                        quantity: qty 
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.order) {
+                    // Success Case
+                    saveOrderLocally(result.order, serviceName); // Save to history
+                    
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Order Successful!',
+                        text: `Order ID: ${result.order} has been placed.`,
+                        background: '#1a1a1a',
+                        color: '#fff',
+                        confirmButtonColor: '#00f2ff'
+                    });
+                    
+                    hideForm();
+                    document.getElementById('orderForm').reset();
+                } else {
+                    // Panel Error Case
+                    throw new Error(result.error || 'Unknown Error');
+                }
+
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Order Failed',
+                    text: error.message || 'Connection to server failed.',
+                    background: '#1a1a1a',
+                    color: '#fff'
+                });
+            }
+        });
+
+        // --- 6. Real-time History & Tracking Logic ---
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', loadHistory);
+
+        function getLocalOrders() {
+            const orders = localStorage.getItem('ubaid_orders');
+            return orders ? JSON.parse(orders) : [];
+        }
+
+        function saveOrderLocally(orderId, serviceName) {
+            const orders = getLocalOrders();
+            // Add new order at the beginning
+            orders.unshift({ id: orderId, service: serviceName, status: 'Pending', remains: 'Checking...' });
+            // Keep max 15 records
+            if(orders.length > 15) orders.pop();
+            localStorage.setItem('ubaid_orders', JSON.stringify(orders));
+            loadHistory();
+        }
+
+        function loadHistory() {
+            const orders = getLocalOrders();
+            const tbody = document.getElementById('historyBody');
+            
+            if (orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-muted">No recent orders found.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = '';
+            orders.forEach(order => {
+                let badgeClass = 'status-pending';
+                let s = order.status.toLowerCase();
+                
+                if(s.includes('process') || s.includes('progress')) badgeClass = 'status-processing';
+                else if(s.includes('complet')) badgeClass = 'status-completed';
+                else if(s.includes('partial')) badgeClass = 'status-partial';
+                else if(s.includes('cancel')) badgeClass = 'status-canceled';
+
+                const row = `
+                    <tr>
+                        <td>#${order.id}</td>
+                        <td>${order.service}</td>
+                        <td><span class="status-badge ${badgeClass}">${order.status}</span></td>
+                        <td>${order.remains || '-'}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        async function fetchStatus(orderId) {
+            try {
+                const response = await fetch('/api/status', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ orderId: orderId })
+                });
+                return await response.json();
+            } catch (e) { return null; }
+        }
+
+        async function manualTrack() {
+            const id = document.getElementById('trackOrderId').value;
+            if(!id) return Swal.fire({ title: 'Enter Order ID', icon: 'warning', background: '#1a1a1a', color:'#fff'});
+
+            Swal.showLoading();
+            const data = await fetchStatus(id);
+            Swal.close();
+
+            if(data) {
+                Swal.fire({
+                    title: `Order #${id}`,
+                    html: `<p>Status: <b style="color:var(--primary)">${data.status}</b></p>
+                           <p>Remains: ${data.remains}</p>`,
+                    background: '#1a1a1a', 
+                    color: '#fff',
+                    confirmButtonColor: '#00f2ff'
+                });
+            } else {
+                Swal.fire({ title: 'Not Found', icon: 'error', background:'#1a1a1a', color:'#fff' });
+            }
+        }
+
+        async function refreshHistory() {
+            const btn = document.querySelector('.refresh-btn');
+            btn.style.transform = 'rotate(360deg)';
+            
+            let orders = getLocalOrders();
+            if(orders.length === 0) return;
+
+            // Fetch updates only for incomplete orders
+            for (let i = 0; i < orders.length; i++) {
+                if (!['Completed', 'Canceled', 'Partial'].includes(orders[i].status)) {
+                    const data = await fetchStatus(orders[i].id);
+                    if (data && data.status) {
+                        orders[i].status = data.status;
+                        orders[i].remains = data.remains;
+                    }
+                }
+            }
+            
+            localStorage.setItem('ubaid_orders', JSON.stringify(orders));
+            loadHistory();
+            
+            setTimeout(() => { btn.style.transform = 'rotate(0deg)'; }, 800);
+        }
+    </script>
+</body>
+</html>
