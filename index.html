@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubaid Social Marketing</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <!-- SweetAlert2 (Stylish Popups) -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        :root {
+            --primary: #00f2ff;
+            --secondary: #ff0055;
+            --dark-bg: #050505;
+            --card-bg: rgba(20, 20, 30, 0.8);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- DNA Background Animation --- */
+        .dna-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                linear-gradient(90deg, var(--dark-bg) 21px, transparent 1%) center,
+                linear-gradient(var(--dark-bg) 21px, transparent 1%) center,
+                var(--dark-bg);
+            background-size: 22px 22px;
+            opacity: 0.8;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+            animation: float 10s infinite linear;
+            opacity: 0.5;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        /* --- UI Elements --- */
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            text-shadow: 0 0 20px var(--primary);
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            background: -webkit-linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .order-form-container {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--secondary);
+            box-shadow: 0 0 50px rgba(255, 0, 85, 0.1);
+            max-width: 600px;
+            margin: 50px auto;
+            display: none; /* Hidden initially */
+        }
+
+        .form-control {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid #333;
+            color: white;
+        }
+        .form-control:focus {
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+        }
+
+        .btn-custom {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            font-weight: bold;
+            padding: 10px 30px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .btn-custom:hover {
+            opacity: 0.9;
+            box-shadow: 0 0 20px var(--secondary);
+        }
+        
+        .limit-badge {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- DNA Animation Background -->
+    <div class="dna-bg" id="particles"></div>
+
+    <div class="container text-center">
+        <!-- Header -->
+        <h1 class="hero-title">UBAID <span style="color:var(--secondary)">SOCIAL</span> MARKETING</h1>
+        <p class="lead mb-5 text-light">Premium SMM Services | High Speed | Secure</p>
+
+        <!-- Services Grid -->
+        <div class="row g-4" id="servicesGrid">
+            <!-- Cards will be injected by JS -->
+        </div>
+
+        <!-- Order Form Section -->
+        <div id="orderSection" class="order-form-container">
+            <h3 id="selectedServiceTitle" class="mb-4" style="font-family: 'Orbitron'">Place Order</h3>
+            <form id="orderForm">
+                <input type="hidden" id="serviceId">
+                <input type="hidden" id="serviceType">
+                
+                <div class="mb-3 text-start">
+                    <label class="form-label">Link (Post/Profile URL)</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-white"><i class="fas fa-link"></i></span>
+                        <input type="url" class="form-control" id="linkInput" placeholder="https://..." required>
+                    </div>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label class="form-label">Quantity <span id="limitDisplay" class="limit-badge ms-2"></span></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-white"><i class="fas fa-layer-group"></i></span>
+                        <input type="number" class="form-control" id="quantityInput" placeholder="Enter amount" required>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="button" class="btn btn-outline-light" onclick="hideForm()">Cancel</button>
+                    <button type="submit" class="btn btn-custom">Submit Order</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-5 py-4 text-white-50">
+            <p>&copy; 2024 Ubaid Social Marketing. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Logic -->
+    <script>
+        // --- 1. Generate DNA Particles ---
+        const particleContainer = document.getElementById('particles');
+        for(let i=0; i<50; i++){
+            const div = document.createElement('div');
+            div.className = 'particle';
+            div.style.left = Math.random() * 100 + '%';
+            div.style.width = (Math.random() * 10 + 2) + 'px';
+            div.style.height = div.style.width;
+            div.style.animationDelay = (Math.random() * 5) + 's';
+            div.style.backgroundColor = i % 2 === 0 ? 'var(--primary)' : 'var(--secondary)';
+            particleContainer.appendChild(div);
+        }
+
+        // --- 2. Configuration (Services & Limits) ---
+        const services = [
+            { name: "Instagram Likes", id: 4665, icon: "fa-heart", limit: 10000, type: 'likes' },
+            { name: "Video Views", id: 4688, icon: "fa-eye", limit: 70000, type: 'views' },
+            { name: "Custom Comments", id: 4391, icon: "fa-comment-dots", limit: 500, type: 'comments' },
+            { name: "Post Favorites", id: 4004, icon: "fa-bookmark", limit: 500, type: 'favorites' }
+        ];
+
+        // --- 3. Render Cards ---
+        const grid = document.getElementById('servicesGrid');
+        services.forEach(service => {
+            const col = document.createElement('div');
+            col.className = 'col-md-3 col-sm-6';
+            col.innerHTML = `
+                <div class="service-card" onclick="openForm(${service.id})">
+                    <i class="fas ${service.icon} service-icon"></i>
+                    <h4>${service.name}</h4>
+                    <p class="text-white-50">Max: ${service.limit.toLocaleString()}</p>
+                    <button class="btn btn-sm btn-outline-light mt-2">Order Now</button>
+                </div>
+            `;
+            grid.appendChild(col);
+        });
+
+        // --- 4. Form Logic ---
+        function openForm(id) {
+            const service = services.find(s => s.id === id);
+            document.getElementById('serviceId').value = service.id;
+            document.getElementById('serviceType').value = service.type;
+            document.getElementById('selectedServiceTitle').innerHTML = `<i class="fas ${service.icon}"></i> ${service.name}`;
+            document.getElementById('limitDisplay').innerText = `(Max Limit: ${service.limit})`;
+            
+            // Scroll and Show
+            const formDiv = document.getElementById('orderSection');
+            formDiv.style.display = 'block';
+            formDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function hideForm() {
+            document.getElementById('orderSection').style.display = 'none';
+        }
+
+        // --- 5. Submission & Validation Logic ---
+        document.getElementById('orderForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const serviceId = parseInt(document.getElementById('serviceId').value);
+            const qty = parseInt(document.getElementById('quantityInput').value);
+            const link = document.getElementById('linkInput').value;
+            const service = services.find(s => s.id === serviceId);
+
+            // LIMIT RESTRICTIONS CHECK
+            if (qty > service.limit) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Limit Exceeded!',
+                    text: `Sorry, maximum allowed for ${service.name} is ${service.limit}.`,
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    confirmButtonColor: '#ff0055'
+                });
+                return;
+            }
+
+            // Show Loading
+            Swal.fire({
+                title: 'Processing DNA...',
+                html: 'Connecting to server',
+                timerProgressBar: true,
+                didOpen: () => { Swal.showLoading() },
+                background: '#1a1a1a',
+                color: '#fff'
+            });
+
+            // --- API CALL LOGIC ---
+            // Note: Direct API calls from browser will likely fail due to CORS.
+            // You should use a Vercel API route. Here is the fetch structure:
+
+            const apiKey = "YOUR_API_KEY_HERE"; // WARNING: Use Environment Variables in Backend
+            const apiUrl = "https://shadowsmmpanel.com/api/v2";
+
+            try {
+                // NOTE: Is code ko production ma backend (Node.js/PHP) sa chalana behtar ha due to CORS
+                const formData = new FormData();
+                formData.append('key', apiKey);
+                formData.append('action', 'add');
+                formData.append('service', serviceId);
+                formData.append('link', link);
+                formData.append('quantity', qty);
+
+                // Using a proxy or backend function is recommended here
+                // For demonstration, we simulate a successful fetch if credentials were valid
+                
+                // Actual Code Implementation would be:
+                /*
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                */
+
+                // Simulation for UI Demo:
+                setTimeout(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Order Placed!',
+                        text: `ID: ${Math.floor(Math.random()*10000)} | Service: ${service.name}`,
+                        background: '#1a1a1a',
+                        color: '#fff',
+                        confirmButtonColor: '#00f2ff'
+                    });
+                    hideForm();
+                    document.getElementById('orderForm').reset();
+                }, 1500);
+
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Connection Failed',
+                    text: 'Could not connect to SMM Panel.',
+                    background: '#1a1a1a',
+                    color: '#fff'
+                });
+            }
+        });
+    </script>
+</body>
+  </html>
