@@ -225,6 +225,46 @@
     </style>
 </head>
 <body>
+    <!-- Marquee Code Start -->
+<style>
+    /* گوگل فونٹ کا لنک تاکہ اگر یوزر کے پاس جمیل نوری نہ ہو تو یہ فونٹ چلے */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+
+    .top-marquee-bar {
+        background-color: #cc0000; /* پٹی کا رنگ (سرخ) */
+        color: #ffffff;            /* لکھائی کا رنگ (سفید) */
+        width: 100%;
+        position: fixed;           /* ٹاپ پر فکس کرنے کے لیے */
+        top: 0;
+        left: 0;
+        z-index: 9999;             /* سب سے اوپر دکھانے کے لیے */
+        padding: 8px 0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        border-bottom: 2px solid #ffcccc;
+    }
+
+    .marquee-text {
+        font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+        font-size: 22px;           /* فونٹ کا سائز */
+        line-height: 1.5;
+        font-weight: normal;
+        direction: rtl;            /* اردو کی سمت */
+    }
+    
+    /* باڈی کے لیے مارجن تاکہ مواد پٹی کے پیچھے نہ چھپ جائے */
+    body {
+        margin-top: 50px; 
+    }
+</style>
+
+<div class="top-marquee-bar">
+    <marquee direction="right" scrollamount="6" onmouseover="this.stop();" onmouseout="this.start();">
+        <span class="marquee-text">
+             برائے کرم 5 منٹ ویوز نہ لگائیں ہم تیز کر رہے ہیں
+        </span>
+    </marquee>
+</div>
+<!-- Marquee Code End -->
 
     <!-- DNA Animation Background -->
     <div class="dna-bg" id="particles"></div>
