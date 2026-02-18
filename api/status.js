@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
     const { orderId } = req.query;
-    const API_KEY = 'eca1d82bc97b56839285darknetac4f391e5fee7c66ec34';
+    const API_KEY = '47e3fd8ab22eb097fee4infosec1f4994d307570972e5d0';
     const API_URL = 'https://smmpakpanels.com/api/v2';
 
     try {
