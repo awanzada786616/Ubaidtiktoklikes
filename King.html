@@ -11,277 +11,190 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
-        :root {
-            --primary: #00f2ff;
-            --secondary: #ff0055;
-            --dark-bg: #050505;
-            --card-bg: rgba(20, 20, 30, 0.9);
-        }
-
+        :root { --primary: #00f2ff; --secondary: #ff0055; --dark: #050505; }
         @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
         
-        body {
-            margin-top: 60px;
-            background-color: var(--dark-bg);
-            color: white;
-            font-family: 'Rajdhani', sans-serif;
-            overflow-x: hidden;
-        }
+        body { background: var(--dark); color: white; font-family: 'Rajdhani', sans-serif; margin-top: 60px; overflow-x: hidden; }
+        
+        .top-marquee { background: #cc0000; position: fixed; top: 0; width: 100%; z-index: 9999; padding: 5px 0; border-bottom: 2px solid #ffcccc; font-family: 'Noto Nastaliq Urdu', serif; }
 
-        .top-marquee-bar {
-            background: #cc0000;
-            position: fixed;
-            top: 0; width: 100%; z-index: 9999;
-            padding: 8px 0;
-            border-bottom: 2px solid #ffcccc;
-        }
+        .dna-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at center, #111 0%, #000 100%); }
+        .particle { position: absolute; border-radius: 50%; background: var(--primary); box-shadow: 0 0 10px var(--primary); animation: float 15s infinite linear; opacity: 0.3; }
+        @keyframes float { 0% { transform: translateY(110vh) scale(0); } 100% { transform: translateY(-10vh) scale(1.2); } }
 
-        .marquee-text {
-            font-family: 'Noto Nastaliq Urdu', serif;
-            font-size: 18px;
-            direction: rtl;
-        }
+        .hero-title { font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 10vw, 3.5rem); text-shadow: 0 0 20px var(--primary); margin-top: 40px; }
+        
+        .service-card { background: rgba(20, 20, 30, 0.9); border: 1px solid rgba(0, 242, 255, 0.2); border-radius: 20px; padding: 25px; transition: 0.4s; cursor: pointer; height: 100%; }
+        .service-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 0 30px rgba(0, 242, 255, 0.2); }
+        .service-icon { font-size: 2.5rem; margin-bottom: 15px; color: var(--primary); }
 
-        /* Sci-Fi DNA Background */
-        .dna-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; background: radial-gradient(circle at center, #111 0%, #000 100%);
-        }
-        .particle {
-            position: absolute; border-radius: 50%; background: var(--primary);
-            box-shadow: 0 0 10px var(--primary); animation: float 15s infinite linear; opacity: 0.3;
-        }
-        @keyframes float {
-            0% { transform: translateY(110vh) scale(0); }
-            100% { transform: translateY(-10vh) scale(1.2); }
-        }
+        .order-box { background: #0a0a0f; border: 1px solid var(--secondary); border-radius: 20px; padding: 30px; max-width: 550px; margin: 40px auto; display: none; box-shadow: 0 0 50px rgba(255, 0, 85, 0.2); }
+        .form-control { background: #111; border: 1px solid #333; color: white; }
+        .form-control:focus { background: #151515; border-color: var(--primary); color: white; box-shadow: none; }
+        .btn-custom { background: linear-gradient(90deg, var(--primary), #00a8b5); color: black; font-weight: bold; border-radius: 30px; border: none; padding: 12px; width: 100%; transition: 0.3s; }
+        .btn-custom:hover { box-shadow: 0 0 20px var(--primary); transform: scale(1.02); }
 
-        .hero-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            text-shadow: 0 0 20px var(--primary);
-            margin: 40px 0 10px;
-        }
-
-        .service-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(0, 242, 255, 0.2);
-            border-radius: 20px;
-            padding: 30px;
-            transition: 0.4s;
-            cursor: pointer;
-            height: 100%;
-        }
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
-        }
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: var(--primary);
-        }
-
-        .order-form-container {
-            background: #0a0a0f;
-            border: 1px solid var(--secondary);
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 600px;
-            margin: 40px auto;
-            display: none;
-        }
-
-        .btn-custom {
-            background: linear-gradient(90deg, var(--primary), #00a8b5);
-            color: black; font-weight: bold; border-radius: 30px;
-            padding: 12px 30px; width: 100%; border: none;
-        }
-
-        .tracking-table {
-            background: rgba(255,255,255,0.03);
-            border-radius: 15px;
-            margin-top: 40px;
-            padding: 20px;
-        }
-
-        .status-badge {
-            padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;
-        }
-        .status-completed { background: #00ff5522; color: #00ff55; border: 1px solid #00ff55; }
-        .status-pending { background: #ffcc0022; color: #ffcc00; border: 1px solid #ffcc00; }
-        .status-processing { background: #00f2ff22; color: #00f2ff; border: 1px solid #00f2ff; }
+        .tracking-section { background: rgba(255, 255, 255, 0.03); border-radius: 20px; padding: 25px; margin-top: 50px; }
+        .status-badge { padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
+        .Pending { background: #ffcc0022; color: #ffcc00; border: 1px solid #ffcc00; }
+        .Completed { background: #00ff5522; color: #00ff55; border: 1px solid #00ff55; }
+        .Processing { background: #00f2ff22; color: #00f2ff; border: 1px solid #00f2ff; }
+        .Canceled { background: #ff005522; color: #ff0055; border: 1px solid #ff0055; }
     </style>
 </head>
 <body>
 
-    <div class="top-marquee-bar">
-        <marquee behavior="scroll" direction="right" scrollamount="6" class="marquee-text">
-            🔥 خوش آمدید! تمام ٹک ٹاک سروسز 100% ورکنگ ہیں۔ اپنا آرڈر لگائیں اور فوری رزلٹ پائیں! &nbsp; &nbsp; &nbsp; &nbsp; ⚡ تیز ترین سروس، بہترین ریٹس۔
+    <div class="top-marquee">
+        <marquee direction="right" scrollamount="6">
+            🔥 تمام سروسز بحال ہیں! ٹک ٹاک لائکس، ویوز اور کمنٹس فوری حاصل کریں۔ &nbsp; &nbsp; &nbsp; &nbsp; ⚡ آرڈر لگانے کے بعد 'Live Tracking' میں اسٹیٹس چیک کریں۔
         </marquee>
     </div>
 
     <div class="dna-bg" id="particles"></div>
 
-    <div class="container text-center">
+    <div class="container text-center mt-5">
         <h1 class="hero-title">UBAID <span style="color:var(--secondary)">SOCIAL</span></h1>
-        <p class="text-white-50 mb-5">PREMIUM SMM PANEL TECHNOLOGY</p>
+        <p class="text-white-50">FASTEST TIKTOK SMM TECHNOLOGY</p>
 
         <!-- Services -->
-        <div class="row g-4" id="servicesGrid">
-            <!-- Items like TikTok Likes, Views etc. -->
-        </div>
+        <div class="row g-4 mt-4" id="servicesGrid"></div>
 
         <!-- Order Form -->
-        <div id="orderSection" class="order-form-container">
-            <h3 id="selectedServiceTitle" class="mb-4"></h3>
+        <div id="orderSection" class="order-box">
+            <h3 id="selectedServiceTitle" class="mb-4" style="font-family: 'Orbitron'; color: var(--primary);"></h3>
             <form id="orderForm">
                 <input type="hidden" id="serviceId">
                 <input type="hidden" id="serviceName">
                 
                 <div class="mb-3 text-start">
-                    <label class="form-label text-white-50">Video/Post URL</label>
-                    <input type="url" class="form-control bg-dark text-white border-secondary" id="linkInput" placeholder="https://www.tiktok.com/..." required>
+                    <label class="form-label text-white-50 small">Video or Profile Link</label>
+                    <input type="url" class="form-control" id="linkInput" placeholder="https://..." required>
                 </div>
 
                 <div class="mb-4 text-start">
-                    <label class="form-label text-white-50">Quantity</label>
-                    <input type="number" class="form-control bg-dark text-white border-secondary" id="quantityInput" placeholder="Minimum 100" required>
+                    <label class="form-label text-white-50 small">Quantity (Check limit)</label>
+                    <input type="number" class="form-control" id="quantityInput" placeholder="Min: 100" required>
                 </div>
 
                 <div class="d-flex gap-3">
-                    <button type="button" class="btn btn-outline-light w-50" onclick="hideForm()">Cancel</button>
-                    <button type="submit" class="btn btn-custom w-50">PLACE ORDER</button>
+                    <button type="button" class="btn btn-outline-light w-50" onclick="hideForm()">Close</button>
+                    <button type="submit" class="btn btn-custom w-50">START INJECTION</button>
                 </div>
             </form>
         </div>
 
         <!-- Tracking -->
-        <div class="tracking-table">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="m-0"><i class="fas fa-satellite-dish me-2 text-primary"></i>Live Tracking</h4>
-                <button class="btn btn-sm btn-outline-primary" onclick="refreshStatuses()">
-                    <i class="fas fa-sync-alt me-1"></i> Refresh Status
+        <div class="tracking-section">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="m-0"><i class="fas fa-microchip text-primary me-2"></i>Live Tracking</h4>
+                <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="refreshHistory()">
+                    <i class="fas fa-sync-alt me-1"></i> Sync Status
                 </button>
             </div>
             <div class="table-responsive">
-                <table class="table table-dark">
+                <table class="table table-dark table-hover border-secondary">
                     <thead>
                         <tr>
-                            <th>Order ID</th>
-                            <th>Service</th>
-                            <th>Qty</th>
-                            <th>Status</th>
+                            <th class="text-secondary">Order ID</th>
+                            <th class="text-secondary">Service</th>
+                            <th class="text-secondary">Qty</th>
+                            <th class="text-secondary">Status</th>
                         </tr>
                     </thead>
                     <tbody id="historyBody">
-                        <tr><td colspan="4" class="text-muted">No orders found.</td></tr>
+                        <tr><td colspan="4" class="text-muted p-4">No recent activity detected.</td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <footer class="py-5 text-white-50">
-            <p>&copy; 2024 Ubaid Social Marketing | Powered by SMM Pak Panels</p>
+        <footer class="py-5 text-white-50 small">
+            <p>&copy; 2024 Ubaid Social Marketing | Premium SMM Panel Solutions</p>
         </footer>
     </div>
 
     <script>
-        // API CONFIGURATION
-        const API_KEY = 'eca1d82bc97b56839285darknetac4f391e5fee7c66ec34';
-        const API_URL = 'https://smmpakpanels.com/api/v2';
-        
-        // CORS Proxy (براؤزر سے ڈائریکٹ کال کرنے کے لیے لازمی ہے)
-        const PROXY = 'https://api.allorigins.win/raw?url=';
-
         const services = [
             { id: 4213, name: "TikTok Pakistani Likes", icon: "fa-heart", desc: "Real Pakistani Accounts" },
-            { id: 4669, name: "TikTok Views (Auto-Refill)", icon: "fa-eye", desc: "Super Fast Delivery" },
-            { id: 4804, name: "TikTok Favorites", icon: "fa-bookmark", desc: "Boost Video Authority" },
-            { id: 4635, name: "TikTok Custom Comments", icon: "fa-comments", desc: "High Quality Comments" }
+            { id: 4669, name: "TikTok Views (Auto-Refill)", icon: "fa-play", desc: "Stable & Non-Drop" },
+            { id: 4804, name: "TikTok Favorites", icon: "fa-star", desc: "Improve Video Ranking" },
+            { id: 4635, name: "TikTok Custom Comments", icon: "fa-comment-dots", desc: "High Quality Usernames" }
         ];
 
-        // 1. Render Services
+        // Render Cards
         const grid = document.getElementById('servicesGrid');
         services.forEach(s => {
             grid.innerHTML += `
-                <div class="col-md-3 col-6">
+                <div class="col-lg-3 col-6">
                     <div class="service-card" onclick="openForm(${s.id}, '${s.name}')">
                         <i class="fas ${s.icon} service-icon"></i>
                         <h5>${s.name}</h5>
-                        <p class="small text-white-50">${s.desc}</p>
+                        <p class="small text-white-50 mb-0">${s.desc}</p>
                     </div>
-                </div>
-            `;
+                </div>`;
         });
 
-        // 2. Open Order Form
         function openForm(id, name) {
             document.getElementById('serviceId').value = id;
             document.getElementById('serviceName').value = name;
             document.getElementById('selectedServiceTitle').innerText = name;
             document.getElementById('orderSection').style.display = 'block';
-            document.getElementById('orderSection').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('orderSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
-        function hideForm() {
-            document.getElementById('orderSection').style.display = 'none';
-        }
+        function hideForm() { document.getElementById('orderSection').style.display = 'none'; }
 
-        // 3. Place Order (API Call)
+        // Place Order
         document.getElementById('orderForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            const id = document.getElementById('serviceId').value;
+            const service = document.getElementById('serviceId').value;
             const link = document.getElementById('linkInput').value;
-            const qty = document.getElementById('quantityInput').value;
-            const name = document.getElementById('serviceName').value;
+            const quantity = document.getElementById('quantityInput').value;
+            const serviceName = document.getElementById('serviceName').value;
 
-            Swal.fire({ title: 'Sending Request...', didOpen: () => Swal.showLoading() });
+            Swal.fire({ title: 'Connecting to Server...', didOpen: () => Swal.showLoading(), background: '#111', color: '#fff' });
 
             try {
-                const targetUrl = `${API_URL}?key=${API_KEY}&action=add&service=${id}&link=${link}&quantity=${qty}`;
-                const response = await fetch(PROXY + encodeURIComponent(targetUrl));
-                const data = await response.json();
+                const res = await fetch('/api/order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ service, link, quantity })
+                });
+                const data = await res.json();
 
                 if (data.order) {
-                    saveOrder(data.order, name, qty);
-                    Swal.fire('Success!', `Order ID #${data.order} Placed!`, 'success');
+                    saveLocalOrder(data.order, serviceName, quantity);
+                    Swal.fire('Success!', `Order #${data.order} placed successfully.`, 'success');
                     hideForm();
                     this.reset();
                     renderHistory();
                 } else {
-                    Swal.fire('Error', data.error || 'Something went wrong', 'error');
+                    Swal.fire('Error', data.error || 'Failed to place order', 'error');
                 }
             } catch (err) {
-                Swal.fire('Error', 'Connection failed!', 'error');
+                Swal.fire('Error', 'Backend connection failed!', 'error');
             }
         });
 
-        // 4. Status Check (API Call)
-        async function refreshStatuses() {
+        async function refreshHistory() {
             let orders = JSON.parse(localStorage.getItem('ubaid_orders') || '[]');
-            if(orders.length === 0) return;
+            if (orders.length === 0) return;
 
-            Swal.fire({ title: 'Updating Status...', timer: 1500, showConfirmButton: false, didOpen: () => Swal.showLoading() });
+            Swal.fire({ title: 'Syncing...', timer: 1000, showConfirmButton: false, didOpen: () => Swal.showLoading() });
 
-            for(let order of orders) {
-                if(order.status === 'Completed') continue;
+            for (let order of orders) {
+                if (order.status === 'Completed' || order.status === 'Canceled') continue;
                 try {
-                    const targetUrl = `${API_URL}?key=${API_KEY}&action=status&order=${order.id}`;
-                    const response = await fetch(PROXY + encodeURIComponent(targetUrl));
-                    const data = await response.json();
-                    if(data.status) order.status = data.status;
-                } catch(e) {}
+                    const res = await fetch(`/api/status?orderId=${order.id}`);
+                    const data = await res.json();
+                    if (data.status) order.status = data.status;
+                } catch (e) {}
             }
-
             localStorage.setItem('ubaid_orders', JSON.stringify(orders));
             renderHistory();
         }
 
-        // 5. Local Storage Functions
-        function saveOrder(id, name, qty) {
+        function saveLocalOrder(id, name, qty) {
             let orders = JSON.parse(localStorage.getItem('ubaid_orders') || '[]');
             orders.unshift({ id, name, qty, status: 'Pending' });
             localStorage.setItem('ubaid_orders', JSON.stringify(orders.slice(0, 10)));
@@ -290,29 +203,26 @@
         function renderHistory() {
             const orders = JSON.parse(localStorage.getItem('ubaid_orders') || '[]');
             const body = document.getElementById('historyBody');
-            if(orders.length === 0) return;
-
+            if (orders.length === 0) return;
             body.innerHTML = orders.map(o => `
                 <tr>
-                    <td>#${o.id}</td>
-                    <td>${o.name}</td>
+                    <td class="fw-bold text-primary">#${o.id}</td>
+                    <td class="small">${o.name}</td>
                     <td>${o.qty}</td>
-                    <td><span class="status-badge status-${o.status.toLowerCase()}">${o.status}</span></td>
-                </tr>
-            `).join('');
+                    <td><span class="status-badge ${o.status}">${o.status}</span></td>
+                </tr>`).join('');
         }
 
         // DNA Animation
         const particles = document.getElementById('particles');
-        for(let i=0; i<40; i++) {
+        for(let i=0; i<35; i++) {
             const p = document.createElement('div');
             p.className = 'particle';
             p.style.left = Math.random() * 100 + '%';
-            p.style.width = p.style.height = (Math.random() * 6 + 2) + 'px';
+            p.style.width = p.style.height = (Math.random() * 5 + 2) + 'px';
             p.style.animationDelay = Math.random() * 10 + 's';
             particles.appendChild(p);
         }
-
         window.onload = renderHistory;
     </script>
 </body>
