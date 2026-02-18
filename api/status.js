@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
     const { orderId } = req.body;
     const API_KEY = process.env.SMM_API_KEY; // Vercel Settings se ayega
-    const API_URL = "https://shadowsmmpanel.com/api/v2";
+    const API_URL = "https://smmpakpanels.com/api/v2";
 
     const params = new URLSearchParams();
     params.append('key', API_KEY);
