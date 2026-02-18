@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   formData.append('quantity', quantity);
 
   try {
-    const response = await fetch('https://shadowsmmpanel.com/api/v2', {
+    const response = await fetch('https://smmpakpanels.com/api/v2', {
         method: 'POST',
         body: formData
     });
