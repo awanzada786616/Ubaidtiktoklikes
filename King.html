@@ -5,13 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ubaid Social Marketing | Premium SMM</title>
     
-    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
-    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
@@ -19,350 +15,305 @@
             --primary: #00f2ff;
             --secondary: #ff0055;
             --dark-bg: #050505;
-            --card-bg: rgba(20, 20, 30, 0.85);
-            --text-font: 'Rajdhani', sans-serif;
-            --title-font: 'Orbitron', sans-serif;
+            --card-bg: rgba(20, 20, 30, 0.9);
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
         
+        body {
+            margin-top: 60px;
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+        }
+
         .top-marquee-bar {
-            background-color: #cc0000;
-            color: #ffffff;
-            width: 100%;
+            background: #cc0000;
             position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 9999;
+            top: 0; width: 100%; z-index: 9999;
             padding: 8px 0;
-            box-shadow: 0 2px 15px rgba(255,0,0,0.3);
             border-bottom: 2px solid #ffcccc;
         }
 
         .marquee-text {
-            font-family: 'Noto Nastaliq Urdu', serif; 
-            font-size: 20px;
+            font-family: 'Noto Nastaliq Urdu', serif;
+            font-size: 18px;
             direction: rtl;
         }
-        
-        body {
-            margin-top: 60px; 
-            background-color: var(--dark-bg);
-            color: white;
-            font-family: var(--text-font);
-            overflow-x: hidden;
-            padding-bottom: 50px;
-        }
 
-        /* DNA Background Animation */
+        /* Sci-Fi DNA Background */
         .dna-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at center, #111 0%, #000 100%);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; background: radial-gradient(circle at center, #111 0%, #000 100%);
         }
-        
         .particle {
-            position: absolute;
-            border-radius: 50%;
-            background: var(--primary);
-            box-shadow: 0 0 8px var(--primary);
-            animation: floatUp 15s infinite linear;
-            opacity: 0.3;
+            position: absolute; border-radius: 50%; background: var(--primary);
+            box-shadow: 0 0 10px var(--primary); animation: float 15s infinite linear; opacity: 0.3;
         }
-        
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            50% { opacity: 0.6; }
-            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        @keyframes float {
+            0% { transform: translateY(110vh) scale(0); }
+            100% { transform: translateY(-10vh) scale(1.2); }
         }
 
         .hero-title {
-            font-family: var(--title-font);
-            font-size: clamp(2rem, 8vw, 3.5rem);
-            text-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
-            margin-top: 40px;
-            letter-spacing: 2px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            text-shadow: 0 0 20px var(--primary);
+            margin: 40px 0 10px;
         }
 
-        /* Service Cards */
         .service-card {
             background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 242, 255, 0.2);
             border-radius: 20px;
-            padding: 25px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(12px);
+            padding: 30px;
+            transition: 0.4s;
             cursor: pointer;
             height: 100%;
-            position: relative;
-            overflow: hidden;
         }
-
         .service-card:hover {
             transform: translateY(-10px);
             border-color: var(--primary);
-            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.2);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
         }
-
         .service-icon {
             font-size: 3rem;
             margin-bottom: 15px;
-            background: linear-gradient(45deg, var(--primary), #fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .stock-container {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(0, 242, 255, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 40px auto;
-            max-width: 900px;
-        }
-
-        .stock-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: var(--primary);
         }
 
         .order-form-container {
-            background: #0f0f1a;
-            padding: 30px;
-            border-radius: 20px;
+            background: #0a0a0f;
             border: 1px solid var(--secondary);
-            max-width: 550px;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
             margin: 40px auto;
             display: none;
         }
 
         .btn-custom {
             background: linear-gradient(90deg, var(--primary), #00a8b5);
-            color: #000;
-            font-weight: 700;
-            border-radius: 30px;
-            padding: 12px;
-            width: 100%;
-            border: none;
-            transition: 0.3s;
+            color: black; font-weight: bold; border-radius: 30px;
+            padding: 12px 30px; width: 100%; border: none;
         }
 
-        .tracking-container {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 20px;
-            padding: 25px;
-            margin-top: 50px;
+        .tracking-table {
+            background: rgba(255,255,255,0.03);
+            border-radius: 15px;
+            margin-top: 40px;
+            padding: 20px;
         }
 
         .status-badge {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;
         }
-
-        footer { margin-top: 100px; padding: 40px; border-top: 1px solid #222; }
+        .status-completed { background: #00ff5522; color: #00ff55; border: 1px solid #00ff55; }
+        .status-pending { background: #ffcc0022; color: #ffcc00; border: 1px solid #ffcc00; }
+        .status-processing { background: #00f2ff22; color: #00f2ff; border: 1px solid #00f2ff; }
     </style>
 </head>
 <body>
 
     <div class="top-marquee-bar">
         <marquee behavior="scroll" direction="right" scrollamount="6" class="marquee-text">
-            ⚠️ تمام سروسز ورکنگ میں ہیں! اپنی مطلوبہ سروس منتخب کریں اور آرڈر لگائیں۔ &nbsp; &nbsp; &nbsp; &nbsp; 🔥 تیز ترین ڈیلیوری اور 100% گارنٹی۔
+            🔥 خوش آمدید! تمام ٹک ٹاک سروسز 100% ورکنگ ہیں۔ اپنا آرڈر لگائیں اور فوری رزلٹ پائیں! &nbsp; &nbsp; &nbsp; &nbsp; ⚡ تیز ترین سروس، بہترین ریٹس۔
         </marquee>
     </div>
 
     <div class="dna-bg" id="particles"></div>
 
-    <div class="container text-center mt-5">
+    <div class="container text-center">
         <h1 class="hero-title">UBAID <span style="color:var(--secondary)">SOCIAL</span></h1>
-        <p class="text-white-50">Advanced TikTok Marketing Solutions</p>
-        
-        <!-- Inventory -->
-        <div class="stock-container">
-            <h4 class="text-start mb-3" style="color: var(--primary); font-family: var(--title-font);">
-                <i class="fas fa-layer-group me-2"></i> Live Inventory Status
-            </h4>
-            <div id="stockBody"></div>
-        </div>
+        <p class="text-white-50 mb-5">PREMIUM SMM PANEL TECHNOLOGY</p>
 
-        <!-- Services Grid -->
-        <div class="row g-4 justify-content-center" id="servicesGrid"></div>
+        <!-- Services -->
+        <div class="row g-4" id="servicesGrid">
+            <!-- Items like TikTok Likes, Views etc. -->
+        </div>
 
         <!-- Order Form -->
         <div id="orderSection" class="order-form-container">
-            <h3 id="selectedServiceTitle" class="mb-4 text-white" style="font-family: var(--title-font);"></h3>
+            <h3 id="selectedServiceTitle" class="mb-4"></h3>
             <form id="orderForm">
                 <input type="hidden" id="serviceId">
                 <input type="hidden" id="serviceName">
                 
                 <div class="mb-3 text-start">
-                    <label class="form-label text-white-50 small">Video or Profile Link</label>
+                    <label class="form-label text-white-50">Video/Post URL</label>
                     <input type="url" class="form-control bg-dark text-white border-secondary" id="linkInput" placeholder="https://www.tiktok.com/..." required>
                 </div>
 
                 <div class="mb-4 text-start">
-                    <label class="form-label text-white-50 small">Order Quantity <span id="limitDisplay" class="badge bg-dark ms-2"></span></label>
-                    <input type="number" class="form-control bg-dark text-white border-secondary" id="quantityInput" placeholder="Minimum: 100" required>
+                    <label class="form-label text-white-50">Quantity</label>
+                    <input type="number" class="form-control bg-dark text-white border-secondary" id="quantityInput" placeholder="Minimum 100" required>
                 </div>
 
-                <div class="d-flex gap-2">
+                <div class="d-flex gap-3">
                     <button type="button" class="btn btn-outline-light w-50" onclick="hideForm()">Cancel</button>
-                    <button type="submit" class="btn btn-custom w-50">Confirm Order</button>
+                    <button type="submit" class="btn btn-custom w-50">PLACE ORDER</button>
                 </div>
             </form>
         </div>
 
         <!-- Tracking -->
-        <div class="tracking-container">
-            <h3 class="text-start mb-4" style="font-family: var(--title-font);">
-                <i class="fas fa-history text-primary me-2"></i> Recent Activity
-            </h3>
+        <div class="tracking-table">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="m-0"><i class="fas fa-satellite-dish me-2 text-primary"></i>Live Tracking</h4>
+                <button class="btn btn-sm btn-outline-primary" onclick="refreshStatuses()">
+                    <i class="fas fa-sync-alt me-1"></i> Refresh Status
+                </button>
+            </div>
             <div class="table-responsive">
-                <table class="table table-dark table-hover">
-                    <thead class="text-secondary">
+                <table class="table table-dark">
+                    <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Order ID</th>
                             <th>Service</th>
+                            <th>Qty</th>
                             <th>Status</th>
-                            <th>Quantity</th>
                         </tr>
                     </thead>
-                    <tbody id="historyBody"></tbody>
+                    <tbody id="historyBody">
+                        <tr><td colspan="4" class="text-muted">No orders found.</td></tr>
+                    </tbody>
                 </table>
             </div>
         </div>
 
-        <footer class="text-white-50">
-            <p>&copy; 2024 Ubaid Social Marketing | Professional SMM Panel</p>
+        <footer class="py-5 text-white-50">
+            <p>&copy; 2024 Ubaid Social Marketing | Powered by SMM Pak Panels</p>
         </footer>
     </div>
 
     <script>
-        // 1. Service Data (Updated with your IDs)
-        const initialServices = [
-            { id: 4213, name: "TikTok Pakistani Likes", icon: "fa-heart", limit: 10000, desc: "Real Pakistani Targeted", stock: 15000 },
-            { id: 4669, name: "TikTok Views (Auto Refill)", icon: "fa-play-circle", limit: 500000, desc: "Instant & Non-Drop", stock: 999999 },
-            { id: 4804, name: "TikTok Favorites", icon: "fa-star", limit: 5000, desc: "Video Ranking Boost", stock: 8500 },
-            { id: 4635, name: "TikTok Custom Comments", icon: "fa-comment-dots", limit: 500, desc: "High Quality Comments", stock: 2000 }
+        // API CONFIGURATION
+        const API_KEY = 'eca1d82bc97b56839285darknetac4f391e5fee7c66ec34';
+        const API_URL = 'https://smmpakpanels.com/api/v2';
+        
+        // CORS Proxy (براؤزر سے ڈائریکٹ کال کرنے کے لیے لازمی ہے)
+        const PROXY = 'https://api.allorigins.win/raw?url=';
+
+        const services = [
+            { id: 4213, name: "TikTok Pakistani Likes", icon: "fa-heart", desc: "Real Pakistani Accounts" },
+            { id: 4669, name: "TikTok Views (Auto-Refill)", icon: "fa-eye", desc: "Super Fast Delivery" },
+            { id: 4804, name: "TikTok Favorites", icon: "fa-bookmark", desc: "Boost Video Authority" },
+            { id: 4635, name: "TikTok Custom Comments", icon: "fa-comments", desc: "High Quality Comments" }
         ];
 
-        // 2. Initialization
-        function init() {
-            renderParticles();
-            renderServices();
-            updateStockUI();
-            loadHistory();
-        }
-
-        function renderServices() {
-            const grid = document.getElementById('servicesGrid');
-            initialServices.forEach(s => {
-                grid.innerHTML += `
-                    <div class="col-lg-3 col-md-6">
-                        <div class="service-card" onclick="openForm(${s.id})">
-                            <i class="fas ${s.icon} service-icon"></i>
-                            <h5 style="font-family: var(--title-font)">${s.name}</h5>
-                            <p class="small text-white-50">${s.desc}</p>
-                            <span class="badge bg-primary text-dark">Max: ${s.limit.toLocaleString()}</span>
-                        </div>
+        // 1. Render Services
+        const grid = document.getElementById('servicesGrid');
+        services.forEach(s => {
+            grid.innerHTML += `
+                <div class="col-md-3 col-6">
+                    <div class="service-card" onclick="openForm(${s.id}, '${s.name}')">
+                        <i class="fas ${s.icon} service-icon"></i>
+                        <h5>${s.name}</h5>
+                        <p class="small text-white-50">${s.desc}</p>
                     </div>
-                `;
-            });
-        }
+                </div>
+            `;
+        });
 
-        function updateStockUI() {
-            const stockBody = document.getElementById('stockBody');
-            stockBody.innerHTML = '';
-            initialServices.forEach(s => {
-                stockBody.innerHTML += `
-                    <div class="stock-item">
-                        <span class="text-white"><i class="fas fa-check-circle text-success me-2"></i>${s.name}</span>
-                        <span style="color: var(--primary); font-weight: bold;">${s.stock.toLocaleString()}+ Available</span>
-                    </div>
-                `;
-            });
-        }
-
-        function openForm(id) {
-            const service = initialServices.find(s => s.id === id);
-            document.getElementById('serviceId').value = service.id;
-            document.getElementById('serviceName').value = service.name;
-            document.getElementById('selectedServiceTitle').innerHTML = `<i class="fas ${service.icon} me-2 text-primary"></i>${service.name}`;
-            document.getElementById('limitDisplay').innerText = `Max: ${service.limit.toLocaleString()}`;
-            
-            const form = document.getElementById('orderSection');
-            form.style.display = 'block';
-            form.scrollIntoView({ behavior: 'smooth' });
+        // 2. Open Order Form
+        function openForm(id, name) {
+            document.getElementById('serviceId').value = id;
+            document.getElementById('serviceName').value = name;
+            document.getElementById('selectedServiceTitle').innerText = name;
+            document.getElementById('orderSection').style.display = 'block';
+            document.getElementById('orderSection').scrollIntoView({ behavior: 'smooth' });
         }
 
         function hideForm() {
             document.getElementById('orderSection').style.display = 'none';
         }
 
+        // 3. Place Order (API Call)
         document.getElementById('orderForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+            
             const id = document.getElementById('serviceId').value;
-            const qty = document.getElementById('quantityInput').value;
             const link = document.getElementById('linkInput').value;
+            const qty = document.getElementById('quantityInput').value;
             const name = document.getElementById('serviceName').value;
 
-            Swal.fire({
-                title: 'Processing Order...',
-                text: 'Connecting to server',
-                allowOutsideClick: false,
-                didOpen: () => Swal.showLoading()
-            });
+            Swal.fire({ title: 'Sending Request...', didOpen: () => Swal.showLoading() });
 
-            // Local simulation of order (Connect to your Vercel API here)
-            setTimeout(() => {
-                const orderId = Math.floor(10000 + Math.random() * 90000);
-                saveOrder(orderId, name, qty);
-                Swal.fire('Success!', `Order #${orderId} has been placed.`, 'success');
-                hideForm();
-                this.reset();
-                loadHistory();
-            }, 1500);
+            try {
+                const targetUrl = `${API_URL}?key=${API_KEY}&action=add&service=${id}&link=${link}&quantity=${qty}`;
+                const response = await fetch(PROXY + encodeURIComponent(targetUrl));
+                const data = await response.json();
+
+                if (data.order) {
+                    saveOrder(data.order, name, qty);
+                    Swal.fire('Success!', `Order ID #${data.order} Placed!`, 'success');
+                    hideForm();
+                    this.reset();
+                    renderHistory();
+                } else {
+                    Swal.fire('Error', data.error || 'Something went wrong', 'error');
+                }
+            } catch (err) {
+                Swal.fire('Error', 'Connection failed!', 'error');
+            }
         });
 
-        function saveOrder(id, service, qty) {
+        // 4. Status Check (API Call)
+        async function refreshStatuses() {
             let orders = JSON.parse(localStorage.getItem('ubaid_orders') || '[]');
-            orders.unshift({ id, service, qty, status: 'Processing' });
+            if(orders.length === 0) return;
+
+            Swal.fire({ title: 'Updating Status...', timer: 1500, showConfirmButton: false, didOpen: () => Swal.showLoading() });
+
+            for(let order of orders) {
+                if(order.status === 'Completed') continue;
+                try {
+                    const targetUrl = `${API_URL}?key=${API_KEY}&action=status&order=${order.id}`;
+                    const response = await fetch(PROXY + encodeURIComponent(targetUrl));
+                    const data = await response.json();
+                    if(data.status) order.status = data.status;
+                } catch(e) {}
+            }
+
+            localStorage.setItem('ubaid_orders', JSON.stringify(orders));
+            renderHistory();
+        }
+
+        // 5. Local Storage Functions
+        function saveOrder(id, name, qty) {
+            let orders = JSON.parse(localStorage.getItem('ubaid_orders') || '[]');
+            orders.unshift({ id, name, qty, status: 'Pending' });
             localStorage.setItem('ubaid_orders', JSON.stringify(orders.slice(0, 10)));
         }
 
-        function loadHistory() {
+        function renderHistory() {
             const orders = JSON.parse(localStorage.getItem('ubaid_orders') || '[]');
             const body = document.getElementById('historyBody');
-            if(orders.length === 0) {
-                body.innerHTML = '<tr><td colspan="4" class="text-center text-white-50">No orders found</td></tr>';
-                return;
-            }
+            if(orders.length === 0) return;
+
             body.innerHTML = orders.map(o => `
                 <tr>
                     <td>#${o.id}</td>
-                    <td>${o.service}</td>
-                    <td><span class="status-badge bg-primary bg-opacity-25 text-primary border border-primary">${o.status}</span></td>
-                    <td>${Number(o.qty).toLocaleString()}</td>
+                    <td>${o.name}</td>
+                    <td>${o.qty}</td>
+                    <td><span class="status-badge status-${o.status.toLowerCase()}">${o.status}</span></td>
                 </tr>
             `).join('');
         }
 
-        function renderParticles() {
-            const container = document.getElementById('particles');
-            for(let i=0; i<30; i++) {
-                const p = document.createElement('div');
-                p.className = 'particle';
-                p.style.left = Math.random() * 100 + '%';
-                p.style.width = p.style.height = (Math.random() * 5 + 2) + 'px';
-                p.style.animationDelay = Math.random() * 10 + 's';
-                container.appendChild(p);
-            }
+        // DNA Animation
+        const particles = document.getElementById('particles');
+        for(let i=0; i<40; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.width = p.style.height = (Math.random() * 6 + 2) + 'px';
+            p.style.animationDelay = Math.random() * 10 + 's';
+            particles.appendChild(p);
         }
 
-        init();
+        window.onload = renderHistory;
     </script>
 </body>
-                                                                      </html>
+</html>
