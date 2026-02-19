@@ -3,173 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ubaid Services | TikTok Growth Panel</title>
+    <title>Ubaid Services | TikTok Growth</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <style>
-        :root { --primary: #ff0050; --secondary: #00f2ea; --bg: #f8fafc; }
+        :root { --primary: #fe2c55; --bg: #f8fafc; }
         body { background: var(--bg); font-family: 'Poppins', sans-serif; padding-top: 60px; }
         #top-bar { position: fixed; top: 0; left: 0; width: 100%; background: #000; color: #fff; padding: 10px 0; z-index: 1000; font-weight: bold; border-bottom: 2px solid var(--primary); }
-        
-        .service-card { 
-            background: white; 
-            border-radius: 15px; 
-            padding: 20px; 
-            border: 1px solid #e2e8f0; 
-            cursor: pointer; 
-            transition: 0.3s; 
-            text-align: center; 
-            height: 100%;
-        }
-        .service-card:hover { 
-            border-color: var(--primary); 
-            transform: translateY(-5px); 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        .service-card.active {
-            border: 2px solid var(--primary);
-            background: #fff5f7;
-        }
-        .order-box { 
-            background: white; 
-            border-radius: 20px; 
-            padding: 30px; 
-            max-width: 600px; 
-            margin: 30px auto; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
-            display: none; 
-        }
-        .btn-primary { background-color: var(--primary); border: none; }
-        .btn-primary:hover { background-color: #d60043; }
-        .icon-box { font-size: 2.5rem; margin-bottom: 15px; color: var(--primary); }
+        .service-card { background: white; border-radius: 15px; padding: 20px; border: 1px solid #e2e8f0; cursor: pointer; transition: 0.3s; text-align: center; }
+        .service-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .service-card.active { border: 2px solid var(--primary); background: #fff0f3; }
+        .order-box { background: white; border-radius: 20px; padding: 30px; max-width: 500px; margin: 30px auto; box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: none; }
+        .btn-primary { background: var(--primary); border: none; }
     </style>
 </head>
 <body>
 
 <div id="top-bar">
-    <marquee direction="left" scrollamount="5">خوش آمدید! Ubaid Services میں آپ کو بہترین اور تیز ترین ٹک ٹاک سروسز ملیں گی۔</marquee>
+    <marquee id="live-limit" direction="left" scrollamount="4">خوش آمدید! Ubaid Services میں آپ کو بہترین ٹک ٹاک سروسز ملیں گی۔</marquee>
 </div>
 
 <div class="container mt-5">
     <div class="text-center mb-5">
-        <h1 class="fw-bold">Ubaid <span style="color: var(--primary);">Services</span></h1>
-        <p class="text-muted">Fast, Secure & Automated TikTok Solutions</p>
+        <h1 class="fw-bold">Ubaid <span style="color:var(--primary)">Services</span></h1>
+        <p class="text-muted">Safe & Automated Social Media Solutions</p>
     </div>
 
     <!-- Services Grid -->
-    <div class="row g-4">
-        <!-- Likes -->
+    <div class="row g-3">
         <div class="col-6 col-md-3">
-            <div class="service-card" onclick="selectService('4577', 'TikTok Likes', this)">
-                <div class="icon-box"><i class="fas fa-heart"></i></div>
-                <h6>TikTok Likes</h6>
-                <small class="text-muted">ID: 4577</small>
+            <div class="service-card" onclick="setService('4577', 'TikTok Likes', this)">
+                <i class="fas fa-heart fa-2x mb-2 text-danger"></i>
+                <h6 class="mb-0">Likes</h6>
+                <small>ID: 4577</small>
             </div>
         </div>
-        <!-- Views -->
         <div class="col-6 col-md-3">
-            <div class="service-card" onclick="selectService('4450', 'TikTok Views', this)">
-                <div class="icon-box"><i class="fas fa-eye"></i></div>
-                <h6>TikTok Views</h6>
-                <small class="text-muted">ID: 4450</small>
+            <div class="service-card" onclick="setService('4450', 'TikTok Views', this)">
+                <i class="fas fa-eye fa-2x mb-2 text-primary"></i>
+                <h6 class="mb-0">Views</h6>
+                <small>ID: 4450</small>
             </div>
         </div>
-        <!-- Comments -->
         <div class="col-6 col-md-3">
-            <div class="service-card" onclick="selectService('3582', 'TikTok Comments', this)">
-                <div class="icon-box"><i class="fas fa-comment"></i></div>
-                <h6>TikTok Comments</h6>
-                <small class="text-muted">ID: 3582</small>
+            <div class="service-card" onclick="setService('3582', 'TikTok Comments', this)">
+                <i class="fas fa-comment fa-2x mb-2 text-success"></i>
+                <h6 class="mb-0">Comments</h6>
+                <small>ID: 3582</small>
             </div>
         </div>
-        <!-- Favorites -->
         <div class="col-6 col-md-3">
-            <div class="service-card" onclick="selectService('4004', 'TikTok Favorites', this)">
-                <div class="icon-box"><i class="fas fa-bookmark"></i></div>
-                <h6>TikTok Favorites</h6>
-                <small class="text-muted">ID: 4004</small>
+            <div class="service-card" onclick="setService('4004', 'TikTok Favourite', this)">
+                <i class="fas fa-star fa-2x mb-2 text-warning"></i>
+                <h6 class="mb-0">Favourite</h6>
+                <small>ID: 4004</small>
             </div>
         </div>
     </div>
 
-    <!-- Order Form Section -->
+    <!-- Order Form -->
     <div id="order-section" class="order-box">
-        <h4 class="text-center mb-4" id="selected-service-name">Place Your Order</h4>
+        <h5 class="text-center mb-4" id="service-title">Place Order</h5>
         <form id="orderForm">
-            <input type="hidden" id="serviceID">
+            <!-- Hidden Input for Dynamic Service ID -->
+            <input type="hidden" id="selectedID" value="">
+            
             <div class="mb-3">
-                <label class="form-label">TikTok Link</label>
-                <input type="url" id="targetLink" class="form-control" placeholder="https://www.tiktok.com/..." required>
+                <label class="form-label">Video Link</label>
+                <input type="url" id="targetLink" class="form-control" placeholder="https://..." required>
             </div>
-            <div class="mb-4">
+            <div class="mb-3">
                 <label class="form-label">Quantity</label>
-                <input type="number" id="targetQty" class="form-control" placeholder="Min: 100" min="100" required>
+                <input type="number" id="targetQty" class="form-control" placeholder="Min 100" required>
             </div>
-            <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">Confirm Order</button>
+            <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">Order Now</button>
         </form>
     </div>
 
     <!-- History -->
-    <div class="mt-5 mb-5">
-        <h5 class="mb-3"><i class="fas fa-history me-2 text-primary"></i>Your Recent Orders</h5>
+    <div class="mt-5">
+        <h5 class="mb-3 text-center">Your Recent Activity</h5>
         <div class="table-responsive bg-white rounded-3 shadow-sm p-3">
             <table class="table align-middle">
-                <thead>
-                    <tr>
-                        <th>Service ID</th>
-                        <th>Link</th>
-                        <th>Quantity</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody id="orderHistory">
-                    <tr><td colspan="4" class="text-center text-muted">No recent orders</td></tr>
-                </tbody>
+                <thead><tr><th>Order ID</th><th>Service ID</th><th>Qty</th><th>Status</th></tr></thead>
+                <tbody id="orderHistory"></tbody>
             </table>
         </div>
     </div>
 </div>
 
 <script>
-    // Service Selection Logic
-    function selectService(id, name, element) {
-        // Highlight selected card
-        document.querySelectorAll('.service-card').forEach(card => card.classList.remove('active'));
+    // 1. Function to select service and update ID
+    function setService(id, name, element) {
+        // Highlight active card
+        document.querySelectorAll('.service-card').forEach(c => c.classList.remove('active'));
         element.classList.add('active');
 
-        // Show form and set values
+        // Update form
         document.getElementById('order-section').style.display = 'block';
-        document.getElementById('selected-service-name').innerText = name;
-        document.getElementById('serviceID').value = id;
-        
+        document.getElementById('service-title').innerText = "Ordering: " + name;
+        document.getElementById('selectedID').value = id; // Yahan ID save ho rahi hai
+
         // Scroll to form
-        document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
+        window.scrollTo({ top: document.getElementById('order-section').offsetTop - 100, behavior: 'smooth' });
     }
 
-    // Order Submission Logic
+    // 2. Order Submission Logic
     document.getElementById('orderForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const serviceId = document.getElementById('serviceID').value;
+        const serviceID = document.getElementById('selectedID').value; // Get the ID from hidden input
         const link = document.getElementById('targetLink').value;
         const qty = document.getElementById('targetQty').value;
 
-        Swal.fire({
-            title: 'Processing...',
-            text: 'Sending request to server',
-            allowOutsideClick: false,
-            didOpen: () => Swal.showLoading()
-        });
+        if(!serviceID) {
+            return Swal.fire('Error', 'Please select a service first!', 'error');
+        }
+
+        Swal.fire({ title: 'Processing...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
 
         try {
-            // API Call (Connecting to your backend)
             const response = await fetch('/api/order', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    service: serviceId,
+                    service: serviceID, // Ab yahan dynamic ID ja rahi hai
                     link: link,
                     quantity: qty
                 })
@@ -178,45 +138,27 @@
             const result = await response.json();
 
             if (result.order) {
-                Swal.fire('Success!', `Order ID #${result.order} has been placed.`, 'success');
-                saveOrderLocal(result.order, serviceId, link, qty);
+                Swal.fire('Success!', `Order #${result.order} placed successfully.`, 'success');
+                addOrderToTable(result.order, serviceID, qty);
                 document.getElementById('orderForm').reset();
             } else {
                 Swal.fire('Error', result.error || 'Failed to place order', 'error');
             }
         } catch (err) {
-            Swal.fire('Error', 'Could not connect to the API server.', 'error');
+            Swal.fire('Error', 'Server connection failed!', 'error');
         }
     });
 
-    // Save & Load History from LocalStorage (Firebase متبادل)
-    function saveOrderLocal(orderId, serviceId, link, qty) {
-        let orders = JSON.parse(localStorage.getItem('ubaid_orders') || '[]');
-        orders.unshift({ orderId, serviceId, link, qty, status: 'Processing' });
-        if(orders.length > 5) orders.pop(); // Keep last 5
-        localStorage.setItem('ubaid_orders', JSON.stringify(orders));
-        renderHistory();
+    function addOrderToTable(orderId, sId, qty) {
+        const list = document.getElementById('orderHistory');
+        const row = `<tr>
+            <td>#${orderId}</td>
+            <td>${sId}</td>
+            <td>${qty}</td>
+            <td><span class="badge bg-success">Processing</span></td>
+        </tr>`;
+        list.innerHTML = row + list.innerHTML;
     }
-
-    function renderHistory() {
-        const historyTable = document.getElementById('orderHistory');
-        const orders = JSON.parse(localStorage.getItem('ubaid_orders') || '[]');
-        
-        if (orders.length === 0) return;
-
-        historyTable.innerHTML = orders.map(o => `
-            <tr>
-                <td>#${o.serviceId}</td>
-                <td class="text-truncate" style="max-width: 150px;">${o.link}</td>
-                <td>${o.qty}</td>
-                <td><span class="badge bg-success">Active</span></td>
-            </tr>
-        `).join('');
-    }
-
-    // Load history on page load
-    window.onload = renderHistory;
 </script>
-
 </body>
 </html>
